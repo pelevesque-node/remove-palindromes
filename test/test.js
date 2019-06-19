@@ -80,7 +80,7 @@ describe('#removePalindromes()', () => {
     expect(JSON.stringify(palindromes)).to.equal(JSON.stringify(expectedPalindromes))
   })
 
-  it('should work with the pivotMustBePalindromic flag', () => {
+  it('should work with the pivotMustBePalindromic option', () => {
     const arr = [
       'aaabbb12bbbaaa',
       '123bbb321',
@@ -109,7 +109,7 @@ describe('#removePalindromes()', () => {
     expect(JSON.stringify(palindromes)).to.equal(JSON.stringify(expectedPalindromes))
   })
 
-  it('should work with the remove flag', () => {
+  it('should work with the remove option', () => {
     const arr = [
       'aaabbb12bbbaaa',
       '123bbb321',
