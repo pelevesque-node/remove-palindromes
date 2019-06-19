@@ -35,6 +35,6 @@
     "standard": "^12.0.1"
   },
   "dependencies": {
-    "@pelevesque/is-palindrome": "0.0.4"
+    "@pelevesque/is-palindrome": "^0.0.5"
   }
 }
