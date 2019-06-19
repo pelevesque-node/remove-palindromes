@@ -7,11 +7,11 @@ const removePalindromes = require('../index')
 describe('#removePalindromes()', () => {
   it('should return an empty array when an empty array is provided', () => {
     const arr = []
-    const removedIndexes = removePalindromes(arr)
-    const expectedRemovedIndexes = []
+    const palindromes = removePalindromes(arr)
     const expectedArr = []
-    expect(JSON.stringify(removedIndexes)).to.equal(JSON.stringify(expectedRemovedIndexes))
+    const expectedPalindromes = []
     expect(JSON.stringify(arr)).to.equal(JSON.stringify(expectedArr))
+    expect(JSON.stringify(palindromes)).to.equal(JSON.stringify(expectedPalindromes))
   })
 
   it('should not remove anything when no palindromes are present', () => {
@@ -20,15 +20,15 @@ describe('#removePalindromes()', () => {
       'abcdef',
       '!@#$%'
     ]
-    const removedIndexes = removePalindromes(arr)
-    const expectedRemovedIndexes = []
+    const palindromes = removePalindromes(arr)
     const expectedArr = [
       '12345',
       'abcdef',
       '!@#$%'
     ]
-    expect(JSON.stringify(removedIndexes)).to.equal(JSON.stringify(expectedRemovedIndexes))
+    const expectedPalindromes = []
     expect(JSON.stringify(arr)).to.equal(JSON.stringify(expectedArr))
+    expect(JSON.stringify(palindromes)).to.equal(JSON.stringify(expectedPalindromes))
   })
 
   it('should remove classic palindromes', () => {
@@ -38,13 +38,17 @@ describe('#removePalindromes()', () => {
       '1221',
       'aaaaa'
     ]
-    const removedIndexes = removePalindromes(arr)
-    const expectedRemovedIndexes = [0, 2, 3]
+    const palindromes = removePalindromes(arr)
     const expectedArr = [
       'abcdef'
     ]
-    expect(JSON.stringify(removedIndexes)).to.equal(JSON.stringify(expectedRemovedIndexes))
+    const expectedPalindromes = [
+      '12321',
+      '1221',
+      'aaaaa'
+    ]
     expect(JSON.stringify(arr)).to.equal(JSON.stringify(expectedArr))
+    expect(JSON.stringify(palindromes)).to.equal(JSON.stringify(expectedPalindromes))
   })
 
   it('should remove palindromes with a groupBy other than 1', () => {
@@ -58,17 +62,22 @@ describe('#removePalindromes()', () => {
       'abcdef',
       '123aaa343aaa123'
     ]
-    const groupBy = 3
-    const removedIndexes = removePalindromes(arr, groupBy)
-    const expectedRemovedIndexes = [0, 4, 5, 7]
+    const opts = { groupBy: 3 }
+    const palindromes = removePalindromes(arr, opts)
     const expectedArr = [
       '123bbb321',
       '12321',
       '12345',
       'abcdef'
     ]
-    expect(JSON.stringify(removedIndexes)).to.equal(JSON.stringify(expectedRemovedIndexes))
+    const expectedPalindromes = [
+      'aaabbb12bbbaaa',
+      '123bcdbcd123',
+      '123ccc123',
+      '123aaa343aaa123'
+    ]
     expect(JSON.stringify(arr)).to.equal(JSON.stringify(expectedArr))
+    expect(JSON.stringify(palindromes)).to.equal(JSON.stringify(expectedPalindromes))
   })
 
   it('should work with the pivotMustBePalindromic flag', () => {
@@ -82,10 +91,8 @@ describe('#removePalindromes()', () => {
       'abcdef',
       '123aaa343aaa123'
     ]
-    const groupBy = 3
-    const pivotMustBePalindromic = true
-    const removedIndexes = removePalindromes(arr, groupBy, pivotMustBePalindromic)
-    const expectedRemovedIndexes = [4, 5, 7]
+    const opts = { groupBy: 3, pivotMustBePalindromic: true }
+    const palindromes = removePalindromes(arr, opts)
     const expectedArr = [
       'aaabbb12bbbaaa',
       '123bbb321',
@@ -93,8 +100,13 @@ describe('#removePalindromes()', () => {
       '12345',
       'abcdef'
     ]
-    expect(JSON.stringify(removedIndexes)).to.equal(JSON.stringify(expectedRemovedIndexes))
+    const expectedPalindromes = [
+      '123bcdbcd123',
+      '123ccc123',
+      '123aaa343aaa123'
+    ]
     expect(JSON.stringify(arr)).to.equal(JSON.stringify(expectedArr))
+    expect(JSON.stringify(palindromes)).to.equal(JSON.stringify(expectedPalindromes))
   })
 
   it('should work with the remove flag', () => {
@@ -108,11 +120,8 @@ describe('#removePalindromes()', () => {
       'abcdef',
       '123aaa343aaa123'
     ]
-    const groupBy = 3
-    const pivotMustBePalindromic = true
-    const remove = false
-    const removedIndexes = removePalindromes(arr, groupBy, pivotMustBePalindromic, remove)
-    const expectedRemovedIndexes = [4, 5, 7]
+    const opts = { groupBy: 3, pivotMustBePalindromic: true, remove: false }
+    const palindromes = removePalindromes(arr, opts)
     const expectedArr = [
       'aaabbb12bbbaaa',
       '123bbb321',
@@ -123,7 +132,12 @@ describe('#removePalindromes()', () => {
       'abcdef',
       '123aaa343aaa123'
     ]
-    expect(JSON.stringify(removedIndexes)).to.equal(JSON.stringify(expectedRemovedIndexes))
+    const expectedPalindromes = [
+      '123bcdbcd123',
+      '123ccc123',
+      '123aaa343aaa123'
+    ]
     expect(JSON.stringify(arr)).to.equal(JSON.stringify(expectedArr))
+    expect(JSON.stringify(palindromes)).to.equal(JSON.stringify(expectedPalindromes))
   })
 })

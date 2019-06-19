@@ -4,7 +4,7 @@
 
 # remove-palindromes
 
-Removes palindromes from an array.
+Removes and returns palindromes from an array.
 
 ## Node Repository
 
@@ -29,10 +29,8 @@ https://www.npmjs.com/package/@pelevesque/remove-palindromes
 ### Parameters
 
 ```js
-arr                    (required)
-groupBy                (optional) default = 1
-pivotMustBePalindromic (optional) default = false
-remove                 (optional) default = true
+arr     (required)
+options (optional) default = { groupBy: 1, pivotMustBePalindromic: false, remove: true }
 ```
 
 ### Requiring
@@ -50,45 +48,20 @@ const arr = [
   '1221',
   'aaaaa'
 ]
-const removedIndexes = removePalindromes(arr)
+const palindromes = removePalindromes(arr)
 /*
-removedIndexes === [0, 2, 3]
-arr ===
-  [
-    'abcdef'
-  ]
-*/
-```
-
-### Using GroupBy
-
-```js
-// group elements by 3
-const arr = [
-  'aaabbb12bbbaaa',
-  '123bbb321',
-  '12321',
-  '12345',
-  '123bcdbcd123',
-  '123ccc123',
-  'abcdef',
-  '123aaa343aaa123'
+arr = [
+  'abcdef'
 ]
-const groupBy = 3
-const removedIndexes = removePalindromes(arr, groupBy)
-/*
-removedIndexes === [0, 4, 5, 7]
-arr ===
-  [
-    '123bbb321',
-    '12321',
-    '12345',
-    'abcdef'
-  ]
+palindromes = [
+  '12321',
+  '1221',
+  'aaaaa'
+]
 */
 ```
 
-### PivotMustBePalindromic Flag
+### GroupBy Option
 
 ```js
 const arr = [
@@ -101,26 +74,25 @@ const arr = [
   'abcdef',
   '123aaa343aaa123'
 ]
-const groupBy = 3
-const pivotMustBePalindromic = true
-const removedIndexes = removePalindromes(arr, groupBy, pivotMustBePalindromic)
+const opts = { groupBy: 3 }
+const palindromes = removePalindromes(arr, opts)
 /*
-removedIndexes === [4, 5, 7]
-arr ===
-  [
-    'aaabbb12bbbaaa',
-    '123bbb321',
-    '12321',
-    '12345',
-    'abcdef'
-  ]
+arr = [
+  '123bbb321',
+  '12321',
+  '12345',
+  'abcdef'
+]
+palindromes = [
+  'aaabbb12bbbaaa',
+  '123bcdbcd123',
+  '123ccc123',
+  '123aaa343aaa123'
+]
 */
 ```
 
-### Remove Flag
-
-With the remove flag on, removedIndexes are still returned, but nothing is
-removed from the array.
+### PivotMustBePalindromic Option
 
 ```js
 const arr = [
@@ -133,22 +105,57 @@ const arr = [
   'abcdef',
   '123aaa343aaa123'
 ]
-const groupBy = 3
-const pivotMustBePalindromic = true
-const remove = false
-const removedIndexes = removePalindromes(arr, groupBy, pivotMustBePalindromic, remove)
+const opts = { groupBy: 3, pivotMustBePalindromic: true }
+const palindromes = removePalindromes(arr, opts)
 /*
-removedIndexes === [4, 5, 7]
-arr ===
-  [
-    'aaabbb12bbbaaa',
-    '123bbb321',
-    '12321',
-    '12345',
-    '123bcdbcd123',
-    '123ccc123',
-    'abcdef',
-    '123aaa343aaa123'
-  ]
+arr = [
+  'aaabbb12bbbaaa',
+  '123bbb321',
+  '12321',
+  '12345',
+  'abcdef'
+]
+palindromes = [
+  '123bcdbcd123',
+  '123ccc123',
+  '123aaa343aaa123'
+]
+*/
+```
+
+### Remove Option
+
+With the remove option set to false, palindromes are still returned, but nothing is
+removed from the original array.
+
+```js
+const arr = [
+  'aaabbb12bbbaaa',
+  '123bbb321',
+  '12321',
+  '12345',
+  '123bcdbcd123',
+  '123ccc123',
+  'abcdef',
+  '123aaa343aaa123'
+]
+const opts = { groupBy: 3, pivotMustBePalindromic: true, remove: false }
+const palindromes = removePalindromes(arr, opts)
+/*
+arr = [
+  'aaabbb12bbbaaa',
+  '123bbb321',
+  '12321',
+  '12345',
+  '123bcdbcd123',
+  '123ccc123',
+  'abcdef',
+  '123aaa343aaa123'
+]
+palindromes = [
+  '123bcdbcd123',
+  '123ccc123',
+  '123aaa343aaa123'
+]
 */
 ```
